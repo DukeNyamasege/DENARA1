@@ -1,418 +1,226 @@
-:root {
-    --background: #0a192f; /* Dark blue background */
-    --white: #ffffff;
-    --theme-color: #64ffda; /* Teal accent color */
-    --box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
-    --card-bg: #112240; /* Slightly lighter blue for cards */
-    --text-color: #ccd6f6; /* Soft blue-white for text */
-    --text-secondary: #8892b0;
-}
+@media (max-width: 1200px) {
+   
+    .container{
+        height: fit-content;
 
-body {
-    background-color: var(--background);
-    color: var(--text-color);
-    font-family: 'Open Sans', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--white);
-    margin: 0.5rem 0;
-}
-
-small {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-}
-
-/* Navigation */
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--card-bg);
-    box-shadow: var(--box-shadow);
-}
-
-.logo img {
-    height: 2.5rem;
-}
-
-.login .Sign {
-    background-color: var(--theme-color);
-    color: var(--background);
-    border: none;
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.login .Sign:hover {
-    background-color: #52d3c2;
-    transform: translateY(-2px);
-}
-
-/* Main Container */
-.container {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Market Selection */
-.get_active_symbols {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-}
-
-.market, .Strategies_container {
-    flex: 1;
-    min-width: 200px;
-}
-
-.drop-down {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid #1e2a47;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 0.5rem;
-}
-
-select.marketSelection, select.strategy {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid #1e2a47;
-    border-radius: 4px;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2364ffda'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 0.7rem top 50%;
-    background-size: 1.5rem;
-}
-
-/* Analysis Buttons */
-.subscribe_ticks {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-
-.start, #ticks-unsubscribe, .btn2.Withdraw {
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.start {
-    background-color: var(--theme-color);
-    color: var(--background);
-}
-
-.start:hover {
-    background-color: #52d3c2;
-    transform: translateY(-2px);
-}
-
-#ticks-unsubscribe {
-    background-color: #ff6b6b;
-    color: white;
-}
-
-#ticks-unsubscribe:hover {
-    background-color: #ff5252;
-    transform: translateY(-2px);
-}
-
-.btn2.Withdraw {
-    background-color: #1e2a47;
-    color: var(--theme-color);
-    border: 1px solid var(--theme-color);
-}
-
-.btn2.Withdraw:hover {
-    background-color: rgba(100, 255, 218, 0.1);
-}
-
-/* Choices Section */
-.choices {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.choose, .choose_again, .match {
-    flex: 1;
-    min-width: 300px;
-    background-color: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: var(--box-shadow);
-}
-
-.heading {
-    color: var(--theme-color);
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
-/* Choice Buttons */
-.over_button_one, .over_button_two, .over_button_three, 
-.over_button_four, .over_button_five, .over_button_six, 
-.over_button_seven, .over_button_eight,
-.under_button_one, .under_button_two, .under_button_three, 
-.under_button_four, .under_button_five, .under_button_six, 
-.under_button_seven, .under_button_eight,
-.button_one, .countdown-button {
-    padding: 0.6rem 1rem;
-    margin: 0.3rem;
-    background-color: #1e2a47;
-    color: var(--text-color);
-    border: 1px solid #2d3b5a;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.over_button_one:hover, .over_button_two:hover, .over_button_three:hover, 
-.over_button_four:hover, .over_button_five:hover, .over_button_six:hover, 
-.over_button_seven:hover, .over_button_eight:hover,
-.under_button_one:hover, .under_button_two:hover, .under_button_three:hover, 
-.under_button_four:hover, .under_button_five:hover, .under_button_six:hover, 
-.under_button_seven:hover, .under_button_eight:hover,
-.button_one:hover, .countdown-button:hover {
-    background-color: rgba(100, 255, 218, 0.1);
-    border-color: var(--theme-color);
-    color: var(--theme-color);
-}
-
-/* Progress Bars */
-.last_digits {
-    background-color: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    box-shadow: var(--box-shadow);
-}
-
-.sideA {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-
-.progress-bar, .progress-bar2 {
-    width: 48%;
-    background-color: #1e2a47;
-    height: 20px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress, .progress2 {
-    height: 100%;
-    background-color: var(--theme-color);
-    width: 0%;
-    transition: width 0.5s ease;
-}
-
-.percent, .percent2 {
-    margin-top: 0.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.even_odd, .over_under {
-    display: flex;
-    justify-content: space-between;
-    margin: 1rem 0;
-}
-
-.even, .odd, .over, .under {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-weight: 600;
-}
-
-.even, .over {
-    background-color: rgba(0, 123, 255, 0.1);
-    color: #007bff;
-}
-
-.odd, .under {
-    background-color: rgba(220, 53, 69, 0.1);
-    color: #dc3545;
-}
-
-.number {
-    font-size: 3rem;
-    text-align: center;
-    margin: 1rem 0;
-    color: var(--theme-color);
-}
-
-/* Digits Space */
-.digits_space {
-    background-color: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    box-shadow: var(--box-shadow);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 1rem;
-}
-
-.digits__digit {
-    text-align: center;
-}
-
-.digits__pie-container {
-    margin: 0 auto;
-    position: relative;
-}
-
-.digits__digit-value {
-    display: block;
-    margin-top: 0.5rem;
-    font-weight: 600;
-}
-
-.digits__digit-display-value {
-    font-size: 1.5rem;
-    color: var(--theme-color);
-}
-
-.digits__digit-display-percentage {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-/* Withdraw Container */
-.withdraw_container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(10, 25, 47, 0.9);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.withdraw {
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
-    position: relative;
-}
-
-.exit2 {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-}
-
-.exit2 img {
-    width: 1.5rem;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-.exit2 img:hover {
-    opacity: 1;
-}
-
-.balance, .minimumwith, .Time, .maxmumwith, .kes {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #1e2a47;
-}
-
-.element, .busy, .time, .martingale, .ticks {
-    color: var(--theme-color);
-    font-weight: 600;
-}
-
-/* Footer */
-.footer {
-    background-color: var(--card-bg);
-    padding: 1.5rem;
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.contain {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
-
-/* SVG Progress Circles */
-.progress__bg {
-    stroke: #1e2a47;
-}
-
-.progress__value {
-    stroke: var(--theme-color);
-    transition: stroke-dasharray 0.5s ease;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .container {
-        padding: 1rem;
     }
+
+  }
+@media (max-width: 1024px) {
+   
+    .container{
+        height: fit-content;
+        overflow-y: scroll;
+    }
+    .get_active_symbols{
+        margin-top: 1rem;
+
+    }
+}
     
-    .get_active_symbols {
-        flex-direction: column;
-    }
-    
-    .choices {
-        flex-direction: column;
-    }
-    
-    .digits_space {
-        grid-template-columns: repeat(5, 1fr));
-    }
-}
 
-@media (max-width: 480px) {
-    .digits_space {
-        grid-template-columns: repeat(2, 1fr));
-    }
+  
+  @media (min-width: 820px) and (max-width: 1024px) {
     
-    .nav {
-        flex-direction: column;
+    .last_digit{
+        gap: 0.5rem;
+    }
+    .choices{
+        gap: 0.2rem;
+    }
+    .sideA{
+      margin-right: 2rem;
+    }
+
+
+  }
+
+  @media (max-width: 768px){
+    .container{
+        height: fit-content;
+        
+        font-size: 18px;
+
+    }
+    button{
+        padding: 0.4rem;
+        font-size: 15px;
+
+    }
+    h1{
+        font-size: 24px;
+    }
+    .choices .match .purchase{
+    border: 1px solid var(--color-theme);
+    padding: 0.4rem;
+    }
+    .last_digit{
         gap: 1rem;
-        padding: 1rem;
     }
-    
-    .subscribe_ticks {
+    .last_digit .sideA{
+        width: 200px;
+    }
+  .last_digit .sideA .progress-bar,.progress-bar2 {
+    height: 30px;
+  }
+  .last_digit .even_odd{
+    gap: 0.2rem;
+  }
+  .last_digit .even, .over{
+    padding: 0.6rem;
+  }
+  .last_digit .odd, .under{
+    padding: 0.6rem;
+  }
+  .digits__pie-progress{
+    width: 105px;
+    height: 105px;
+  }
+  .choices{
+   gap: 1rem;
+  }
+  .sideA{
+    margin-right: 2rem;
+  }
+
+
+  }
+
+  @media (max-width: 540px){
+    body{
+      overflow-x: hidden;
+    }
+    .choices{
         flex-direction: column;
     }
+    .last_digit{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .digits_space{
+      background: none;
+    }
+    .digits__digit-display-value {
+      top: 35%;
+      left: 50%;
+    }
+    .nav {
+      flex-direction: column;
+      gap: 0;
+    }
+   
+    .nav .login{
+      margin-bottom: 0.5rem;
+    }
+    .nav .login button{
+      padding: 0.1rem;
+      font-size: 14px;
+
+    }
+
+
+  }
+
+
+
+  @media (max-width: 425px){
+    .choices{
+        gap: 0.5rem;
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+        align-items: center;
+
+       }
+  .choose .choice_one .heading,.choice_two .heading, .choose_even  .heading{
+    width: 60px;
+    height: fit-content;
+  }
+  .get_active_symbols{
+    justify-content: center;
+    gap: 0.2rem;
+  }
+ 
+  button{
+    font-size: 14px;
+  }
+  .get_active_symbols .drop-down{
+    width: fit-content;
+  }
+  select {
+    font-size: 9px;
+    width: fit-content;
+  }
+   .last_digit{
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
+    flex-direction: column;
+    }
+    .last_digit .sideA{
+        width: 80%;
+    }
+  .last_digit .sideA .progress-bar,.progress-bar2 {
+    height: 30px;
+
+  }
+  .last_digit .even_odd{
+    gap: 0.2rem;
+    padding: 0.2rem;
+  }
+  .last_digit .even, .over{
+    padding: 0.6rem;
+    font-size: 14px;
+    border-radius: 20%;
+    border-radius: 20%;
+  }
+  .last_digit .odd, .under{
+    border-radius: 20%;
+    padding: 0.6rem;
+    font-size: 14px;
+
+  }
+  .digits__pie-progress{
+    width: 95px;
+    height: 95px;
+  }
+  
+  }
+
+  @media (max-width: 320px){
+  .get_active_symbols{
+      width: 100%;
+      margin: 0;
+  }
+  .get_active_symbols button{
+      font-size: 12px;
+  }
+    .digits__pie-progress{
+        width: 90px;
+        height: 90px;
+    }
+    
+  .digits_space{
+    gap: 0.5rem;
+    padding: 0.2rem;
+    box-shadow: none;
+  }
+  .subscribe_ticks{
+      display: flex;
+      gap: 0.4rem;
+    }
+    .subscribe_ticks button{
+        padding: 0.2rem;
+        gap: 2px;
+    }
+    .subscribe_ticks #ticks-history{
+        display: none;
+    }
+
 }
+    
+
+
+
+
+  
