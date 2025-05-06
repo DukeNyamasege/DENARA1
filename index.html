@@ -1,1000 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Denara Pro | Trading Analysis Tool</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <style>
-        :root {
-            --primary: #6c5ce7;
-            --primary-dark: #5649c0;
-            --secondary: #00cec9;
-            --accent: #fd79a8;
-            --dark: #2d3436;
-            --light: #f5f6fa;
-            --success: #00b894;
-            --danger: #d63031;
-            --warning: #fdcb6e;
-            --info: #0984e3;
-            --border-radius: 12px;
-            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: var(--box-shadow);
-            position: relative;
-            z-index: 100;
-            animation: fadeInDown 0.8s;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            height: 40px;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
-        }
-
-        .logo h1 {
-            font-weight: 600;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .auth-buttons .btn {
-            margin-left: 1rem;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .btn-primary {
-            background-color: white;
-            color: var(--primary);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid white;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            animation: fadeIn 0.8s;
-        }
-
-        /* Market Controls */
-        .market-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .control-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-
-        .control-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .control-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .control-header i {
-            margin-right: 0.8rem;
-            font-size: 1.2rem;
-        }
-
-        .control-header h3 {
-            font-weight: 600;
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-wrapper::after {
-            content: '\f078';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            right: 1rem;
-            transform: translateY(-50%);
-            pointer-events: none;
-            color: var(--primary);
-        }
-
-        select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: var(--border-radius);
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            color: var(--dark);
-            background-color: white;
-            appearance: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: var(--border-radius);
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-lg {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-        }
-
-        .btn-success {
-            background-color: var(--success);
-            color: white;
-        }
-
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-        }
-
-        .btn-info {
-            background-color: var(--info);
-            color: white;
-        }
-
-        .btn-warning {
-            background-color: var(--warning);
-            color: var(--dark);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Trading Strategies */
-        .strategies {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .strategy-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-
-        .strategy-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .strategy-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .strategy-header i {
-            margin-right: 0.8rem;
-            font-size: 1.2rem;
-        }
-
-        .strategy-header h3 {
-            font-weight: 600;
-        }
-
-        .digit-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-        }
-
-        .digit-btn {
-            padding: 0.8rem;
-            border: none;
-            border-radius: 8px;
-            background-color: var(--light);
-            color: var(--dark);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .digit-btn:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .digit-btn.active {
-            background-color: var(--primary);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        /* Market Data Display */
-        .market-data {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .data-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-
-        .data-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .data-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #eee;
-        }
-
-        .data-header h3 {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .current-digit {
-            font-size: 3rem;
-            font-weight: 700;
-            text-align: center;
-            margin: 1rem 0;
-            color: var(--primary);
-            font-family: 'Roboto Mono', monospace;
-            animation: pulse 2s infinite;
-        }
-
-        .probability-bars {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .probability-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .probability-label {
-            min-width: 80px;
-            font-weight: 500;
-        }
-
-        .progress-container {
-            flex: 1;
-            height: 10px;
-            background-color: #eee;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            height: 100%;
-            border-radius: 5px;
-            transition: width 0.5s ease;
-        }
-
-        .progress-over {
-            background-color: var(--success);
-        }
-
-        .progress-under {
-            background-color: var(--danger);
-        }
-
-        .progress-even {
-            background-color: var(--info);
-        }
-
-        .progress-odd {
-            background-color: var(--warning);
-        }
-
-        .probability-value {
-            min-width: 40px;
-            text-align: right;
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 500;
-        }
-
-        /* Digits Analysis */
-        .digits-analysis {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            margin-bottom: 2rem;
-        }
-
-        .digits-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .digits-header h2 {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .digits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 1rem;
-        }
-
-        .digit-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 1rem;
-            border-radius: 8px;
-            background-color: var(--light);
-            transition: var(--transition);
-        }
-
-        .digit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .digit-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .digit-probability {
-            font-size: 0.9rem;
-            color: var(--dark);
-        }
-
-        /* Chart Container */
-        .chart-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            margin-bottom: 2rem;
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
-            border-radius: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        /* Broadcast Panel */
-        .broadcast-panel {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            margin-bottom: 2rem;
-            position: relative;
-        }
-
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .panel-header h2 {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--danger);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .close-btn:hover {
-            transform: rotate(90deg);
-        }
-
-        .panel-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .panel-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .panel-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-
-        .panel-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-            padding: 0.5rem 0;
-            border-bottom: 2px solid #eee;
-        }
-
-        .panel-value.red {
-            color: var(--danger);
-        }
-
-        .panel-value.blue {
-            color: var(--info);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-item i {
-            color: var(--accent);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes progressAnimation {
-            0% { width: 0%; }
-            100% { width: var(--progress-width); }
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .auth-buttons {
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .digit-buttons {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
+	<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/" rel="preconnect" />
+	<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
+	<link href="index.css" rel="stylesheet" />
+	<link href="typescript.css" rel="stylesheet" />
+	<link href="media.css" rel="stylesheet" />
+	<title>Denara</title>
+	<script async src="../pagead2.googlesyndication.com/pagead/js/f3042.txt?client=ca-pub-3299235190408040" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="navbar">
-            <div class="logo">
-                <img src="logo2.png" alt="Denara Pro">
-                <h1>Denara <span>Pro</span></h1>
-            </div>
-            <div class="auth-buttons">
-                <button class="btn btn-primary animate__animated animate__pulse animate__infinite animate__slower">
-                    <i class="fas fa-sign-in-alt"></i> Sign In
-                </button>
-                <button class="btn btn-outline">
-                    <i class="fas fa-user-plus"></i> Register
-                </button>
-            </div>
-        </div>
-    </header>
+<div class="nav">
+<div class="logo"><img alt="Denara" src="logo2.png" srcset="" /></div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Market Controls -->
-        <div class="market-controls">
-            <div class="control-card animate__animated animate__fadeInLeft">
-                <div class="control-header">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Market Selection</h3>
-                </div>
-                <div class="select-wrapper">
-                    <select class="marketSelection">
-                        <option value="R_10">Volatility 10 Index</option>
-                        <option value="1HZ10V">Volatility 10 (1s) Index</option>
-                        <option value="R_25">Volatility 25 Index</option>
-                        <option value="1HZ25V">Volatility 25 (1s) Index</option>
-                        <option value="R_50">Volatility 50 Index</option>
-                        <option value="1HZ50V">Volatility 50 (1s) Index</option>
-                        <option value="R_75">Volatility 75 Index</option>
-                        <option value="1HZ75V">Volatility 75 (1s) Index</option>
-                        <option value="R_100">Volatility 100 Index</option>
-                        <option value="1HZ100V">Volatility 100 (1s) Index</option>
-                    </select>
-                </div>
-            </div>
+<div class="login"><button class="Sign">Sign In</button></div>
+</div>
 
-            <div class="control-card animate__animated animate__fadeInRight">
-                <div class="control-header">
-                    <i class="fas fa-chess-knight"></i>
-                    <h3>Trading Strategy</h3>
-                </div>
-                <div class="select-wrapper">
-                    <select class="strategy">
-                        <option>Matches</option>
-                        <option>Over</option>
-                        <option>Under</option>
-                        <option>Even</option>
-                        <option>Odd</option>
-                        <option>Differs</option>
-                        <option>Rise</option>
-                        <option>Fall</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+<div class="container">
+<div class="get_active_symbols">
+<div class="market"><button class="drop-down" id="activeSymbols">Market</button><select class="marketSelection"><option class="Volatility10" value="R_10">Volatility 10 index</option><option class="Volatility10s" value="1HZ10V">Volatility 10(1s) index</option><option class="Volatility25" value="R_25">Volatility 25 index</option><option class="Volatility25s" value="1HZ25V">Volatility 25(1s) index</option><option class="Volatility50" value="R_50">Volatility 50 index</option><option class="Volatility50s" value="1HZ50V">Volatility 50(1s) index</option><option class="Volatility75" value="R_75">Volatility 75 index</option><option class="Volatility75s" value="1HZ75V">Volatility 75(1s) index</option><option class="Volatility100" value="R_100">Volatility 100 index</option><option class="Volatility100s" value="1HZ100V">Volatility 100(1s) index</option><!-- Add more options as needed --></select></div>
 
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-            <button id="ticks" class="btn btn-success btn-lg animate__animated animate__pulse">
-                <i class="fas fa-play"></i> Start Analysis
-            </button>
-            <button id="ticks-unsubscribe" class="btn btn-danger btn-lg">
-                <i class="fas fa-stop"></i> Stop Analysis
-            </button>
-            <button class="btn btn-info btn-lg">
-                <i class="fas fa-broadcast-tower"></i> Broadcast
-            </button>
-            <button class="btn btn-warning btn-lg">
-                <i class="fas fa-cog"></i> Settings
-            </button>
-        </div>
+<div class="Strategies_container"><button class="drop-down">Strategy</button><select class="strategy"><option class="strategy4">Matches</option><option class="strategy1">Over</option><option class="strategy2">Under</option><option class="strategy3">Even</option><option class="strategy4">Odd</option><option class="strategy4">Differs</option><option class="strategy4">Rise</option><option class="strategy4">Fall</option></select></div>
+</div>
 
-        <!-- Trading Strategies -->
-        <div class="strategies">
-            <div class="strategy-card animate__animated animate__fadeInUp">
-                <div class="strategy-header">
-                    <i class="fas fa-arrow-up"></i>
-                    <h3>Over</h3>
-                </div>
-                <div class="digit-buttons">
-                    <button class="digit-btn">1</button>
-                    <button class="digit-btn">2</button>
-                    <button class="digit-btn">3</button>
-                    <button class="digit-btn">4</button>
-                    <button class="digit-btn">5</button>
-                    <button class="digit-btn">6</button>
-                    <button class="digit-btn">7</button>
-                    <button class="digit-btn">8</button>
-                </div>
-            </div>
+<div class="subscribe_ticks"><button class="start" id="ticks">Start Analysis</button><button id="ticks-unsubscribe">Stop Analysis</button><button class="btn2 Withdraw">Broadcast</button></div>
 
-            <div class="strategy-card animate__animated animate__fadeInUp animate__delay-1s">
-                <div class="strategy-header">
-                    <i class="fas fa-arrow-down"></i>
-                    <h3>Under</h3>
-                </div>
-                <div class="digit-buttons">
-                    <button class="digit-btn">1</button>
-                    <button class="digit-btn">2</button>
-                    <button class="digit-btn">3</button>
-                    <button class="digit-btn">4</button>
-                    <button class="digit-btn">5</button>
-                    <button class="digit-btn">6</button>
-                    <button class="digit-btn">7</button>
-                    <button class="digit-btn">8</button>
-                </div>
-            </div>
+<div class="choices">
+<div class="choose">
+<div class="choice_one">
+<div class="heading">Over</div>
 
-            <div class="strategy-card animate__animated animate__fadeInUp animate__delay-2s">
-                <div class="strategy-header">
-                    <i class="fas fa-divide"></i>
-                    <h3>Even/Odd</h3>
-                </div>
-                <div class="digit-buttons">
-                    <button class="digit-btn active">Even</button>
-                    <button class="digit-btn">Odd</button>
-                </div>
-            </div>
-        </div>
+<div class="Over_choice"><button class="over_button_one">1</button><button class="over_button_two">2</button><button class="over_button_three">3</button><button class="over_button_four">4</button><button class="over_button_five">5</button><button class="over_button_six">6</button><button class="over_button_seven">7</button><button class="over_button_eight">8</button></div>
+</div>
 
-        <!-- Market Data -->
-        <div class="market-data">
-            <div class="data-card animate__animated animate__fadeInLeft">
-                <div class="data-header">
-                    <h3>Current Digit</h3>
-                    <span class="badge">Live</span>
-                </div>
-                <div class="current-digit" id="current-digit">0</div>
-                <div class="probability-bars">
-                    <div class="probability-item">
-                        <span class="probability-label">Over</span>
-                        <div class="progress-container">
-                            <div class="progress-bar progress-over" style="width: 50%"></div>
-                        </div>
-                        <span class="probability-value">50%</span>
-                    </div>
-                    <div class="probability-item">
-                        <span class="probability-label">Under</span>
-                        <div class="progress-container">
-                            <div class="progress-bar progress-under" style="width: 50%"></div>
-                        </div>
-                        <span class="probability-value">50%</span>
-                    </div>
-                    <div class="probability-item">
-                        <span class="probability-label">Even</span>
-                        <div class="progress-container">
-                            <div class="progress-bar progress-even" style="width: 50%"></div>
-                        </div>
-                        <span class="probability-value">50%</span>
-                    </div>
-                    <div class="probability-item">
-                        <span class="probability-label">Odd</span>
-                        <div class="progress-container">
-                            <div class="progress-bar progress-odd" style="width: 50%"></div>
-                        </div>
-                        <span class="probability-value">50%</span>
-                    </div>
-                </div>
-            </div>
+<div class="choice_two">
+<div class="heading">Under</div>
 
-            <div class="data-card animate__animated animate__fadeInRight">
-                <div class="data-header">
-                    <h3>Exact Digit</h3>
-                    <span class="badge">Scan</span>
-                </div>
-                <div class="current-digit">2</div>
-                <div class="probability-bars">
-                    <div class="probability-item">
-                        <span class="probability-label">Matches</span>
-                        <div class="progress-container">
-                            <div class="progress-bar progress-over" style="width: 10%"></div>
-                        </div>
-                        <span class="probability-value">10%</span>
-                    </div>
-                    <div class="probability-item">
-                        <span class="probability-label">Differs</span>
-                        <div class="progress-container">
-                            <div class="progress-bar progress-under" style="width: 90%"></div>
-                        </div>
-                        <span class="probability-value">90%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="under_choice"><button class="under_button_one">1</button><button class="under_button_two">2</button><button class="under_button_three">3</button><button class="under_button_four">4</button><button class="under_button_five">5</button><button class="under_button_six">6</button><button class="under_button_seven">7</button><button class="under_button_eight">8</button></div>
+</div>
+</div>
 
-        <!-- Digits Analysis -->
-        <div class="digits-analysis animate__animated animate__fadeInUp">
-            <div class="digits-header">
-                <h2><i class="fas fa-chart-pie"></i> Digits Probability Analysis</h2>
-                <span class="badge">Updated every tick</span>
-            </div>
-            <div class="digits-grid">
-                <div class="digit-card">
-                    <div class="digit-value">0</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">1</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">2</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">3</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">4</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">5</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">6</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">7</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">8</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-                <div class="digit-card">
-                    <div class="digit-value">9</div>
-                    <div class="digit-probability">10%</div>
-                </div>
-            </div>
-        </div>
+<div class="choose_again">
+<div class="choose_even">
+<div class="heading">Even<br />
+Odd</div>
 
-        <!-- Chart Container -->
-        <div class="chart-container animate__animated animate__fadeIn">
-            <div class="chart-placeholder">
-                <i class="fas fa-chart-bar fa-3x"></i>
-                <span>Live Market Data Visualization</span>
-            </div>
-        </div>
+<div class="even_choice"><button class="button_one">Start</button></div>
+</div>
+<!-- <div class="choose_even">
+              <div class="heading"> Odd</div>
+              <div class="odd_choice">
+                <button class="button_one">Start</button>
+              </div>
+            </div> --></div>
 
-        <!-- Broadcast Panel -->
-        <div class="broadcast-panel animate__animated animate__fadeInUp">
-            <div class="panel-header">
-                <h2><i class="fas fa-broadcast-tower"></i> Broadcast Panel</h2>
-                <button class="close-btn" id="exit">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="panel-grid">
-                <div class="panel-item">
-                    <span class="panel-label">Broadcast Market</span>
-                    <span class="panel-value red">Volatility 10 Index</span>
-                </div>
-                <div class="panel-item">
-                    <span class="panel-label">Purchase</span>
-                    <span class="panel-value blue">Over 5</span>
-                </div>
-                <div class="panel-item">
-                    <span class="panel-label">Strategy</span>
-                    <span class="panel-value">Matches</span>
-                </div>
-                <div class="panel-item">
-                    <span class="panel-label">Start Time</span>
-                    <span class="panel-value">00:00:00</span>
-                </div>
-                <div class="panel-item">
-                    <span class="panel-label">Martingale</span>
-                    <span class="panel-value">3</span>
-                </div>
-                <div class="panel-item">
-                    <span class="panel-label">Ticks</span>
-                    <span class="panel-value">5</span>
-                </div>
-            </div>
-            <button class="btn btn-primary btn-lg" style="margin-top: 1.5rem; width: 100%;">
-                <i class="fas fa-satellite-dish"></i> Start Broadcast
-            </button>
-        </div>
-    </div>
+<div class="match"><button class="countdown-button">Exact digit</button>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-item">
-                <i class="fas fa-envelope"></i>
-                <span>support@denaradigitpro.com</span>
-            </div>
-            <div class="footer-item">
-                <i class="fas fa-phone"></i>
-                <span>+254 719 343 802</span>
-            </div>
-            <div class="footer-item">
-                <i class="fas fa-clock"></i>
-                <span>24/7 Customer Support</span>
-            </div>
-        </div>
-    </footer>
+<div class="heading">
+<div class="countdown">Scan</div>
+</div>
 
-    <!-- JavaScript -->
-    <script>
-        // Simple animation for digit change
-        const currentDigit = document.getElementById('current-digit');
-        let digit = 0;
-        
-        // Simulate digit change (replace with real data)
-        setInterval(() => {
-            digit = (digit + 1) % 10;
-            currentDigit.textContent = digit;
-            currentDigit.classList.add('animate__animated', 'animate__bounceIn');
-            
-            // Remove animation class after animation completes
-            setTimeout(() => {
-                currentDigit.classList.remove('animate__animated', 'animate__bounceIn');
-            }, 1000);
-            
-            // Update progress bars randomly (replace with real data)
-            document.querySelectorAll('.progress-bar').forEach(bar => {
-                const randomPercent = Math.floor(Math.random() * 100);
-                bar.style.width = `${randomPercent}%`;
-                bar.nextElementSibling.nextElementSibling.textContent = `${randomPercent}%`;
-            });
-            
-            // Update digit probabilities randomly (replace with real data)
-            document.querySelectorAll('.digit-probability').forEach(el => {
-                const randomProb = Math.floor(Math.random() * 20);
-                el.textContent = `${randomProb}%`;
-            });
-        }, 2000);
-        
-        // Digit button click effect
-        document.querySelectorAll('.digit-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.digit-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                this.classList.add('animate__animated', 'animate__pulse');
-                
-                setTimeout(() => {
-                    this.classList.remove('animate__animated', 'animate__pulse');
-                }, 1000);
-            });
-        });
-        
-        // Start analysis button effect
-        document.getElementById('ticks').addEventListener('click', function() {
-            this.classList.add('animate__animated', 'animate__rubberBand');
-            
-            setTimeout(() => {
-                this.classList.remove('animate__animated', 'animate__rubberBand');
-            }, 1000);
-        });
-    </script>
+<div class="purchase">
+<h1>2</h1>
+</div>
+</div>
+</div>
+<!-- Progress bar -->
+
+<div class="last_digit">
+<div class="sideA">
+<div class="progress-bar">
+<div class="progress"></div>
+
+<h5 class="percent">0%</h5>
+</div>
+
+<div class="progress-bar2">
+<div class="progress2"></div>
+
+<h5 class="percent2">0%</h5>
+</div>
+</div>
+
+<div class="even_odd">
+<div class="even">Even</div>
+
+<div class="odd">Odd</div>
+</div>
+
+<div>
+<h1 class="number">0</h1>
+</div>
+
+<div class="over_under">
+<div class="over">Over</div>
+
+<div class="under">Under</div>
+</div>
+</div>
+
+<div class="digits_space">
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg red" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value one" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">0</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage nono">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg red" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value two" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">1</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage achiel">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg red" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value three" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">2</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage ariyo">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg red" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value four" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">3</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage adek">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg" cx="60" cy="60" fill="white" r="54" stroke="#80003c" stroke-width="12"></circle><circle class="progress__value five" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+<span class="digits__digit-value"><i class="digits__digit-display-value">4</i> <i class="digits__digit-display-percentage agwen">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg black" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value six" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">5</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage abich">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg black" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value seven" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">6</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage auchiel">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg black" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value eight" cx="60" cy="60" fill="none" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">7</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage abirio">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg black" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value nine" cx="60" cy="60" fill="" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">8</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage aboro">0</i></span></div>
+
+<div class="digits__digit">
+<div class="digits__pie-container"><svg class="digits__pie-progress" height="120" viewbox="0 0 120 120" width="120"><circle class="progress__bg black" cx="60" cy="60" fill="none" r="54" stroke="#E8EEFC" stroke-width="12"></circle><circle class="progress__value ten" cx="60" cy="60" fill="" r="54" stroke-dasharray="119.88317333333332,219.40882666666667" stroke-dashoffset="229.58758666666665" stroke-opacity="0.6175" stroke-width="12"></circle></svg></div>
+
+<h3><span class="digits__digit-value"><i class="digits__digit-display-value">9</i></span></h3>
+<span class="digits__digit-value"><i class="digits__digit-display-percentage ochiko">0</i></span></div>
+</div>
+</div>
+
+<div class="withdraw_container">
+<div class="withdraw">
+<div class="exit2" id="exit"><img alt="" src="download.png" srcset="" /></div>
+
+<div class="currentmarket"><button class="drop" id="active">Start Broadcast</button></div>
+
+<div class="balance">
+<h5>Broadcast Market</h5>
+
+<h6 class="red element">Market</h6>
+</div>
+
+<div class="minimumwith">
+<h5>Purchase</h5>
+
+<h6 class="blue element">Market</h6>
+</div>
+
+<div class="Time">
+<h5>Strategy</h5>
+
+<h6 class="busy">__</h6>
+</div>
+
+<div class="maxmumwith">
+<h5>Start</h5>
+
+<h6 class="time">00</h6>
+</div>
+
+<div class="kes">
+<h5><span>Martingale</span></h5>
+
+<h5 class="martingale"><span>__</span></h5>
+</div>
+
+<div class="kes">
+<h5><span>Ticks</span></h5>
+
+<h5 class="ticks"><span>__</span></h5>
+</div>
+</div>
+</div>
+
+<div class="footer">
+<div class="contain">
+<div class="email"><small>support@denaradigitpro.com</small></div>
+
+<div class="contact"><small>+254719343802</small></div>
+</div>
+</div>
 </body>
-</html>
+<script type="module" src="fonts.js"></script><script type="module" src="type.js"></script><script type="module" src="jqwery.js"></script></html>
